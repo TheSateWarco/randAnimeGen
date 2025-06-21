@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/main.css">
+  <title>I'm Bored</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Anime Recommendations</h1>
+
+<form method="POST" action="/">
+  <input type="text" name="genre" placeholder="Enter a genre" />
+  <button type="submit">Generate</button>
+</form>
+    <section id="cards" class="cards">
+      <article class="card-item">
+        <h2 class="card-activity">
+          <%= data.title || "No anime found" %>
+        </h2>
+        <div class="card-info">
+          <span class="card-type">
+            Type: <%= data.type %>
+          </span>
+          <span class="card-participants">
+            Episodes:
+            <span class="card-number">
+              <%= data.episodes || "N/A" %>
+            </span>
+          </span>
+        </div>
+
+        <% if (data.images && data.images.jpg && data.images.jpg.image_url) { %>
+          <img src="<%= data.images.jpg.image_url %>" alt="Anime image" class="card-image">
+        <% } %>
+
+        <% if (data.synopsis) { %>
+          <p class="card-description">
+            <%= data.synopsis %>
+          </p>
+        <% } %>
+    </article>
+
+
+
+      <div id="tag-error" class="tag-error">
+        <!-- Show any errors that were sent from the backend -->
+      </div>
+
+    </section>
+  </div>
+
+</body>
+
+</html>
