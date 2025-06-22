@@ -12,18 +12,18 @@
   <div class="container">
     <h1>Anime Recommendations</h1>
 
-<form method="POST" action="/">
+<form method="POST" action="/" class="form">
   <input type="text" name="genre" placeholder="Enter a genre" />
-  <button type="submit">Generate</button>
+  <button class="form-submit" type="submit">Generate</button>
 </form>
     <section id="cards" class="cards">
       <article class="card-item">
-        <h2 class="card-activity">
+        <h2 class="card-name">
           <%= data.title || "No anime found" %>
         </h2>
         <div class="card-info">
-          <span class="card-type">
-            Type: <%= data.type %>
+          <span class="card-rating">
+            Rating: <%= data.score %> / 10
           </span>
           <span class="card-participants">
             Episodes:
@@ -31,18 +31,19 @@
               <%= data.episodes || "N/A" %>
             </span>
           </span>
+        
+
+          <% if (data.images && data.images.jpg && data.images.jpg.image_url) { %>
+            <img src="<%= data.images.jpg.image_url %>" alt="Anime image" class="card-image">
+          <% } %>
+
+          <% if (data.synopsis) { %>
+            <p class="card-description">
+              <%= data.synopsis %>
+            </p>
+          <% } %>
         </div>
-
-        <% if (data.images && data.images.jpg && data.images.jpg.image_url) { %>
-          <img src="<%= data.images.jpg.image_url %>" alt="Anime image" class="card-image">
-        <% } %>
-
-        <% if (data.synopsis) { %>
-          <p class="card-description">
-            <%= data.synopsis %>
-          </p>
-        <% } %>
-    </article>
+      </article>
 
 
 
@@ -51,7 +52,7 @@
       </div>
 
     </section>
-  </div>
+  
 
 </body>
 

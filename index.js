@@ -2,8 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 
+
 const app = express();
 const port = 3000;
+
+
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -43,8 +46,6 @@ app.post("/", async (req, res) => {
     const result = response.data.data; 
     // random anime
     const randomAnime = result[Math.floor(Math.random() * result.length)];
-
-    console.log("post")
     console.log(randomAnime)
     res.render("index.ejs", {
       data: randomAnime ,
@@ -66,14 +67,45 @@ app.listen(port, () => {
 const genreMap = {
   action: 1,
   adventure: 2,
+  cars: 3,
   comedy: 4,
+  avantgarde: 5,
+  demons: 6,
+  mystery: 7,
   drama: 8,
   fantasy: 10,
+  game: 11,
+  historical: 13,
   horror: 14,
-  music: 40,
+  kids: 15,
+  martialarts: 17,
+  mecha: 18,
+  music: 19,
+  parody: 20,
+  samurai: 21,
   romance: 22,
-  sciFi: 24,
+  school: 23,
+  scifi: 24,
+  shoujo: 25,
+  girlslove: 26,
+  shounen: 27,
+  boyslove: 28,
+  space: 29,
   sports: 30,
-  thriller: 41,
+  superpower: 31,
+  vampire: 32,
+  harem: 35,
+  sliceoflife: 36,
+  supernatural: 37,
+  military: 38,
+  police: 39,
+  psychological: 40,
+  suspense: 45,
+  seinen: 42,
+  josei: 43,
+  genderbender: 44,
+  awardwinning: 46,
+  gourmet: 47,
+  worklife: 48,
   // add more genres as needed
 };
