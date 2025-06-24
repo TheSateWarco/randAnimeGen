@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/main.css">
-  <title>I'm Bored</title>
+  <title>Random Anime Generater</title>
 </head>
 
 <body>
@@ -17,38 +17,48 @@
   <button class="form-submit" type="submit">Generate</button>
 </form>
     <section id="cards" class="cards">
-      <article class="card-item">
-        <h2 class="card-name">
-          <%= data.title || "No anime found" %>
-        </h2>
-        <div class="card-info">
-          <span class="card-rating">
-            Rating: <%= data.score %> / 10
-          </span>
-          <span class="card-participants">
-            Episodes:
-            <span class="card-number">
-              <%= data.episodes || "N/A" %>
+      <!--check if theres local data-->
+      <%if (locals.data) {%>
+        <article class="card-item">
+          <h2 class="card-name">
+            <%= data.title%>
+          </h2>
+          <div class="card-info">
+            <span class="card-rating">
+              Rating: <%= (data.score || "N/A")%> / 10
             </span>
-          </span>
-        
+            <span class="card-participants">
+              Episodes:
+              <span class="card-number">
+                <%= data.episodes%>
+              </span>
+            </span>
+          
 
-          <% if (data.images && data.images.jpg && data.images.jpg.image_url) { %>
-            <img src="<%= data.images.jpg.image_url %>" alt="Anime image" class="card-image">
-          <% } %>
+            <% if (data.images && data.images.jpg && data.images.jpg.image_url) { %>
+              <img src="<%= data.images.jpg.image_url %>" alt="Anime image" class="card-image">
+            <% } %>
 
-          <% if (data.synopsis) { %>
-            <p class="card-description">
-              <%= data.synopsis %>
-            </p>
-          <% } %>
-        </div>
-      </article>
+            <% if (data.synopsis) { %>
+              <p class="card-description">
+                <%= data.synopsis %>
+              </p>
+            <% } %>
+          </div>
+        </article>
+      <%}%>
+        <!--check if theres non in genre-->
 
-
-
-      <div id="tag-error" class="tag-error">
-        <!-- Show any errors that were sent from the backend -->
+        <%if (data?.title === undefined){%>
+          <article class="card-item">
+          
+            <div class="card-info">
+            <span class="card-error">
+              Error: Your genre is not in the database. Please try again
+            </span>
+            </div>
+          </article>
+            <%}%>
       </div>
 
     </section>

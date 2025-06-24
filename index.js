@@ -14,14 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
   try {
-    console.log("get")
+    console.log("get");
     const response = await axios.get("https://api.jikan.moe/v4/random/anime");
-    const result = response.data;
+    const result = response.data.data;
     console.log(result);
     res.render("index.ejs", { data: result });
   } catch (error) {
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
+      data: null,
       error: error.message,
     });
   }
@@ -30,9 +31,22 @@ app.get("/", async (req, res) => {
 // giv the data from api to ejs
 app.post("/", async (req, res) => {
   console.log("Body:", req.body);
-  // no genre ________________________________fix to any genre
   if (!req.body.genre) {
-    console.log("Genre not found in body!");
+    // if search is empty = any genre
+    try{
+      const response = await axios.get("https://api.jikan.moe/v4/random/anime");
+      const result = response.data.data;
+      console.log(result);
+      return res.render("index.ejs", { data: result });
+    }
+    catch
+    {
+          console.error("Failed to make request:", error.message);
+    res.render("index.ejs", {
+      data: null,
+      error: error.message,
+    });
+  }
   }
   try {
     console.log(req.body);
